@@ -24,8 +24,8 @@ export default async function ProjectsPage({
   const projects = await getProjects();
 
   return (
-    <div className="container-editorial pt-40 pb-32">
-      <header className="mb-20 max-w-3xl">
+    <div className="container-editorial pt-24 pb-20 md:pt-40 md:pb-32">
+      <header className="mb-12 max-w-3xl md:mb-20">
         <p className="text-eyebrow mb-4">— {t('projects.subtitle')}</p>
         <h1 className="text-display text-5xl md:text-7xl">{t('projects.title')}</h1>
       </header>

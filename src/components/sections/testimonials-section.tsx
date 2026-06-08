@@ -49,7 +49,7 @@ export function TestimonialsSection({ isHe }: { isHe: boolean }) {
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.9 }}
-          className="mb-16 flex items-end justify-between"
+          className="mb-8 flex flex-col gap-6 md:mb-16 md:flex-row md:items-end md:justify-between"
         >
           <div>
             <p className="mb-4 text-[9px] uppercase tracking-[0.3em] text-white/30" style={{ fontFamily: 'var(--font-montserrat)' }}>

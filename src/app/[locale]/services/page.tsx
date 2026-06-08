@@ -18,10 +18,10 @@ export default async function ServicesPage({ params }: { params: Promise<{ local
   const processSteps = ['step1', 'step2', 'step3', 'step4'] as const;
 
   return (
-    <div className="pt-40 pb-32">
+    <div className="pt-24 pb-20 md:pt-40 md:pb-32">
 
       {/* ── Header ── */}
-      <div className="container-editorial mb-24">
+      <div className="container-editorial mb-14 md:mb-24">
         <FadeIn>
           <p className="text-eyebrow mb-4">
             <span className="me-2 font-serif italic text-brass">—</span>

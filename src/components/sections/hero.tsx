@@ -74,7 +74,7 @@ export function Hero({
 
       {/* Content — anchored to bottom, text shifts with mouse */}
       <motion.div
-        className="container-editorial relative flex h-full flex-col justify-end pb-24 pt-40"
+        className="container-editorial relative flex h-full flex-col justify-end pb-16 pt-28 md:pb-24 md:pt-40"
         style={{ x: txtX }}
       >
         <div className="max-w-5xl">
@@ -91,7 +91,7 @@ export function Hero({
           {/* Heading — per-line mask reveal */}
           <h1
             className="font-serif font-light text-cream-100"
-            style={{ fontSize: 'clamp(5rem, 13vw, 14rem)', lineHeight: 0.88 }}
+            style={{ fontSize: 'clamp(3rem, 13vw, 14rem)', lineHeight: 0.88 }}
           >
             <div className="overflow-hidden pb-2">
               <motion.span
@@ -135,7 +135,7 @@ export function Hero({
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1.7 }}
-            className="mt-14"
+            className="mt-8 md:mt-14"
           >
             <Link
               href={`/${locale ?? 'he'}/projects`}

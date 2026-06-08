@@ -25,10 +25,10 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
   const timelineItems = ['t1', 't2', 't3', 't4'] as const;
 
   return (
-    <div className="pt-40 pb-32">
+    <div className="pt-24 pb-20 md:pt-40 md:pb-32">
 
       {/* ── Hero section ── */}
-      <div className="container-editorial mb-28">
+      <div className="container-editorial mb-16 md:mb-28">
         <FadeIn>
           <p className="text-eyebrow mb-4">
             <span className="me-2 font-serif italic text-brass">—</span>
@@ -46,7 +46,7 @@ export default async function AboutPage({ params }: { params: Promise<{ locale: 
       </div>
 
       {/* ── Main bio ── */}
-      <section className="container-editorial mb-28">
+      <section className="container-editorial mb-16 md:mb-28">
         <div className="grid gap-16 md:grid-cols-12 md:gap-24">
           <FadeIn delay={0.1} className="md:col-span-5">
             <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-cream-200">

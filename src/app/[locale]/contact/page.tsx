@@ -15,12 +15,12 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
   const isHe = locale === 'he';
 
   return (
-    <div className="pt-40 pb-32">
+    <div className="pt-24 pb-20 md:pt-40 md:pb-32">
       <div className="container-editorial">
 
         {/* Header */}
         <FadeIn>
-          <header className="mb-20 max-w-3xl">
+          <header className="mb-12 max-w-3xl md:mb-20">
             <p className="text-eyebrow mb-4">
               <span className="me-2 font-serif italic text-brass">—</span>
               {t('contact.subtitle')}
