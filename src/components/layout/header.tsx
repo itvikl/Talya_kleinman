@@ -69,7 +69,7 @@ export function Header() {
       )}
     >
       <div className="container-editorial flex h-20 items-center justify-between">
-        <Logo inverted={!scrolled && !open && isHero} onTZClick={handleLogoSecretClick} />
+        <Logo inverted={!scrolled && !open && isHero} onTZClick={isHero ? handleLogoSecretClick : undefined} />
 
         <nav className="hidden items-center gap-10 md:flex">
           {navItems.map((item) => {
