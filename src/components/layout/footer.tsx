@@ -3,12 +3,27 @@
 import Link from 'next/link';
 import { Instagram, Mail, Phone } from 'lucide-react';
 import { useLocale, useT } from '@/lib/i18n-context';
+import { useRouter } from 'next/navigation';
+import { useRef } from 'react';
 
 export function Footer() {
   const year = new Date().getFullYear();
   const locale = useLocale();
   const t = useT();
   const isHe = locale === 'he';
+  const router = useRouter();
+  const clickCount = useRef(0);
+  const clickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function handleSecretClick() {
+    clickCount.current += 1;
+    if (clickTimer.current) clearTimeout(clickTimer.current);
+    clickTimer.current = setTimeout(() => { clickCount.current = 0; }, 3000);
+    if (clickCount.current >= 5) {
+      clickCount.current = 0;
+      router.push('/admin/login');
+    }
+  }
 
   const navLinks = [
     { href: `/${locale}/projects`, label: t('nav.projects') },
@@ -154,8 +169,9 @@ export function Footer() {
       <div className="border-t border-cream-100/6">
         <div className="container-editorial flex flex-col gap-3 py-6 md:flex-row md:items-center md:justify-between">
           <p
-            className="text-[9px] text-cream-100/20"
-            style={{ fontFamily: 'var(--font-montserrat)' }}
+            className="text-[9px] text-cream-100/20 select-none"
+            style={{ fontFamily: 'var(--font-montserrat)', cursor: 'default' }}
+            onClick={handleSecretClick}
           >
             &copy; {year} Talya Zaltsman Studio.{' '}
             {isHe ? 'כל הזכויות שמורות.' : 'All rights reserved.'}
