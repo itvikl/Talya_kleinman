@@ -1,54 +1,5 @@
 runConfig:
   minInstances: 0
   maxInstances: 10
-  concurrency: 80
   cpu: 1
   memoryMiB: 512
-
-env:
-  - variable: NODE_ENV
-    value: production
-    availability:
-      - BUILD
-      - RUNTIME
-
-  - variable: NEXT_PUBLIC_FIREBASE_API_KEY
-    value: AIzaSyACSrtd-_ZheIIk5Va_txO1ll4c0zBflHo
-    availability:
-      - BUILD
-      - RUNTIME
-
-  - variable: NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
-    value: talyadev-9050a.firebaseapp.com
-    availability:
-      - BUILD
-      - RUNTIME
-
-  - variable: NEXT_PUBLIC_FIREBASE_PROJECT_ID
-    value: talyadev-9050a
-    availability:
-      - BUILD
-      - RUNTIME
-
-  - variable: NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
-    value: talyadev-9050a.firebasestorage.app
-    availability:
-      - BUILD
-      - RUNTIME
-
-  - variable: NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
-    value: "27835553732"
-    availability:
-      - BUILD
-      - RUNTIME
-
-  - variable: NEXT_PUBLIC_FIREBASE_APP_ID
-    value: 1:27835553732:web:b59ea022208dbdec4af691
-    availability:
-      - BUILD
-      - RUNTIME
-
-  - variable: FIREBASE_SERVICE_ACCOUNT_JSON
-    secret: firebase-service-account@latest
-    availability:
-      - RUNTIME
