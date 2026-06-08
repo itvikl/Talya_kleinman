@@ -1,0 +1,111 @@
+@import 'lenis/dist/lenis.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 247 244 238;
+    --foreground: 30 27 23;
+  }
+
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Lenis handles smooth scroll — remove native scroll-behavior */
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Hide native cursor on pointer-fine devices (custom cursor takes over) */
+  @media (pointer: fine) {
+    *, *::before, *::after {
+      cursor: none !important;
+    }
+  }
+
+  body {
+    background-color: rgb(var(--background));
+    color: rgb(var(--foreground));
+    font-feature-settings: 'ss01', 'cv11';
+  }
+
+  ::selection {
+    background: #9A7B4F;
+    color: #FAF8F3;
+  }
+
+  /* Film grain overlay — gives warmth and luxury depth */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 9001;
+    pointer-events: none;
+    opacity: 0.032;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    animation: grain 9s steps(10) infinite;
+  }
+}
+
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0) }
+  10%       { transform: translate(-5%, -10%) }
+  20%       { transform: translate(-15%, 5%) }
+  30%       { transform: translate(7%, -25%) }
+  40%       { transform: translate(-5%, 25%) }
+  50%       { transform: translate(-15%, 10%) }
+  60%       { transform: translate(15%, 0%) }
+  70%       { transform: translate(0%, 15%) }
+  80%       { transform: translate(3%, 35%) }
+  90%       { transform: translate(-10%, 10%) }
+}
+
+@layer components {
+  .editorial-link {
+    @apply relative inline-block tracking-editorial uppercase text-xs;
+  }
+
+  .editorial-link::after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .editorial-link:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  [dir='rtl'] .editorial-link::after {
+    transform-origin: left;
+  }
+
+  [dir='rtl'] .editorial-link:hover::after {
+    transform-origin: right;
+  }
+
+  .container-editorial {
+    @apply mx-auto px-6 md:px-12 lg:px-20;
+    max-width: 1440px;
+  }
+
+  .text-display {
+    @apply font-serif font-light leading-[1.05] tracking-tight;
+  }
+
+  .text-eyebrow {
+    @apply font-sans uppercase tracking-editorial text-xs text-ink-muted;
+  }
+}

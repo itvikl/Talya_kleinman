@@ -1,0 +1,113 @@
+{
+  "nav": {
+    "home": "Home",
+    "projects": "Projects",
+    "about": "About",
+    "services": "Services",
+    "contact": "Contact"
+  },
+  "home": {
+    "heroTitle": "Interior Architecture",
+    "heroSubtitle": "Talya Zaltsman",
+    "heroTagline": "The space you live in, and the things you surround yourself with, directly influence your life",
+    "selectedWorks": "Selected Works",
+    "viewAll": "View all projects",
+    "aboutTitle": "About the Studio",
+    "aboutBody": "An architecture and interior design studio specializing in luxury residences. Every project is meticulously crafted around the client, the space and the light.",
+    "readMore": "Read more",
+    "contactCta": "Ready to begin a project?",
+    "contactCtaButton": "Let's talk"
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Selected Works",
+    "filterAll": "All",
+    "filterWarm": "Warm Living",
+    "filterStatement": "Statement",
+    "filterGlamour": "Glamour",
+    "yearLabel": "Year",
+    "areaLabel": "Area",
+    "locationLabel": "Location",
+    "categoryLabel": "Category",
+    "backToProjects": "Back to projects",
+    "nextProject": "Next project",
+    "prevProject": "Previous project"
+  },
+  "about": {
+    "title": "About",
+    "subtitle": "The Studio",
+    "body": "Talya Zaltsman is an experienced interior architect specializing in luxury residential design. Her studio focuses on creating restrained, refined spaces that combine authentic materials with precise detailing.",
+    "philosophyTitle": "Our Philosophy",
+    "philosophy": "We believe that great design is felt, not seen. Every choice — material, colour, proportion — stems from a deep understanding of the client and the space.",
+    "valuesTitle": "The values that guide us",
+    "values": {
+      "v1": { "title": "Listening", "body": "Every project begins with deeply listening to the client's needs and dreams" },
+      "v2": { "title": "Precision", "body": "Every detail, every tone, every dimension — chosen intentionally and exactly" },
+      "v3": { "title": "Materiality", "body": "We work with real materials that age beautifully with time" },
+      "v4": { "title": "Humanity", "body": "The best space is one that feels like a home — not a museum" }
+    },
+    "timelineTitle": "Our Journey",
+    "timeline": {
+      "t1": { "year": "2009", "text": "Studio founded in Jerusalem with a first residential project" },
+      "t2": { "year": "2014", "text": "Expansion to Tel Aviv and nationally recognised projects" },
+      "t3": { "year": "2018", "text": "International collaborations and luxury villa design" },
+      "t4": { "year": "Today", "text": "Over 80 projects, 3 cities, and many happy clients" }
+    }
+  },
+  "services": {
+    "title": "Services",
+    "subtitle": "What we offer",
+    "intro": "Every project begins with listening. We understand your needs, analyse the space, and craft a solution that reflects your character.",
+    "processTitle": "Our Process",
+    "ctaTitle": "Ready to begin?",
+    "ctaBody": "Get in touch for a free introductory call",
+    "ctaButton": "Contact us",
+    "items": {
+      "architecture": {
+        "title": "Architectural Planning",
+        "body": "Full residential planning, from concept to the smallest detail. We address spatial planning, flow and natural light.",
+        "includes": ["Full working drawings", "3D spatial planning", "Material & finish selection", "Contractor coordination"]
+      },
+      "interior": {
+        "title": "Interior Design",
+        "body": "Comprehensive design including materials, colors, furniture and lighting. Every element is carefully chosen to create complete harmony.",
+        "includes": ["Materials & colour palette", "Furniture & lighting selection", "Styling & accessories", "Supplier oversight"]
+      },
+      "supervision": {
+        "title": "Project Supervision",
+        "body": "End-to-end project management, from the first sketch to handover. Professional on-site presence to ensure quality and timeline.",
+        "includes": ["Weekly site visits", "Full stakeholder coordination", "Quality control", "Schedule & budget management"]
+      }
+    },
+    "process": {
+      "step1": { "num": "01", "title": "Introduction", "body": "An initial conversation to understand your needs, vision and budget" },
+      "step2": { "num": "02", "title": "Design Concept", "body": "Developing a bespoke design direction tailored to your personality" },
+      "step3": { "num": "03", "title": "Planning & Detail", "body": "Deep professional work on every detail of the project" },
+      "step4": { "num": "04", "title": "Build & Handover", "body": "Accompanying the project until the moment you walk through the door" }
+    }
+  },
+  "contact": {
+    "title": "Contact",
+    "subtitle": "We'd love to hear about your project",
+    "name": "Full name",
+    "phone": "Phone",
+    "email": "Email",
+    "message": "Tell us about the project",
+    "submit": "Send",
+    "submitting": "Sending...",
+    "successTitle": "Message sent successfully",
+    "successBody": "We will get back to you shortly",
+    "errorMessage": "Something went wrong. Please try again or contact us directly.",
+    "requiredField": "Required field"
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "designedBy": "Designed and developed for",
+    "studio": "Talya Zaltsman Studio"
+  },
+  "common": {
+    "languageSwitch": "עב",
+    "menu": "Menu",
+    "close": "Close"
+  }
+}
