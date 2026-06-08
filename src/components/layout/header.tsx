@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { Menu, X } from 'lucide-react';
 import { Logo } from '@/components/ui/logo';
 import { useT, useLocale } from '@/lib/i18n-context';
@@ -19,11 +19,24 @@ export function Header() {
   const t = useT();
   const locale = useLocale();
   const pathname = usePathname();
+  const router = useRouter();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [projectsHover, setProjectsHover] = useState(false);
   const hideTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isHe = locale === 'he';
+  const logoClickCount = useRef(0);
+  const logoClickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  function handleLogoSecretClick() {
+    logoClickCount.current += 1;
+    if (logoClickTimer.current) clearTimeout(logoClickTimer.current);
+    logoClickTimer.current = setTimeout(() => { logoClickCount.current = 0; }, 3000);
+    if (logoClickCount.current >= 5) {
+      logoClickCount.current = 0;
+      router.push('/admin/login');
+    }
+  }
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
@@ -56,7 +69,9 @@ export function Header() {
       )}
     >
       <div className="container-editorial flex h-20 items-center justify-between">
-        <Logo inverted={!scrolled && !open && isHero} />
+        <div onClick={handleLogoSecretClick} className="select-none">
+          <Logo inverted={!scrolled && !open && isHero} />
+        </div>
 
         <nav className="hidden items-center gap-10 md:flex">
           {navItems.map((item) => {
