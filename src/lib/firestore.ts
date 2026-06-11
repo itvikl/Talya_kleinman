@@ -3,7 +3,7 @@ import type { DbProject, DbProjectImage, DbLead, DbTestimonial, InsertLead, Site
 
 const SETTINGS_DOC = 'main';
 
-const DEFAULT_SETTINGS: SiteSettings = {
+export const DEFAULT_SETTINGS: SiteSettings = {
   hero_image: '',
   hero_tagline_he: 'החללים שאנו חיים בהם, והדברים שאנו מקיפים את עצמנו בהם, משפיעים ישירות על חיינו',
   hero_tagline_en: 'The spaces we inhabit shape the way we live.',

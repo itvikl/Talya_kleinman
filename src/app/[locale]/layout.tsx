@@ -5,7 +5,7 @@ import { Cormorant_Garamond, Frank_Ruhl_Libre, Heebo, Playfair_Display, Montserr
 import { locales, localeDirection, type Locale } from '@/i18n/config';
 import { I18nProvider } from '@/lib/i18n-context';
 import { SiteSettingsProvider } from '@/lib/settings-context';
-import { getSiteSettings } from '@/lib/firestore';
+import { getSiteSettings, DEFAULT_SETTINGS } from '@/lib/firestore';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { WhatsAppFab } from '@/components/ui/whatsapp-fab';
@@ -78,7 +78,7 @@ export default async function LocaleLayout({
 
   const [messages, settings] = await Promise.all([
     import(`../../../messages/${locale}.json`).then((m) => m.default),
-    getSiteSettings(),
+    getSiteSettings().catch(() => DEFAULT_SETTINGS),
   ]);
   const dir = localeDirection[locale as Locale];
 

@@ -44,4 +44,5 @@ env:
   - variable: FIREBASE_SERVICE_ACCOUNT_JSON
     secret: firebase-service-account
     availability:
+      - BUILD
       - RUNTIME
