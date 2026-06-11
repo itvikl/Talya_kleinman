@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { Instagram, Mail, Phone } from 'lucide-react';
 import { useLocale, useT } from '@/lib/i18n-context';
+import { useSiteSettings } from '@/lib/settings-context';
 import { useRouter } from 'next/navigation';
 import { useRef } from 'react';
 
@@ -12,8 +13,15 @@ export function Footer() {
   const t = useT();
   const isHe = locale === 'he';
   const router = useRouter();
+  const settings = useSiteSettings();
   const clickCount = useRef(0);
   const clickTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const phone = settings?.contact_phone ?? '+972 50-123-4567';
+  const email = settings?.contact_email ?? 'studio@talyazaltsman.com';
+  const instagram = settings?.contact_instagram ?? 'https://www.instagram.com/talya_zaltsman_interiors/';
+  const address = isHe ? (settings?.contact_address_he ?? 'ירושלים, ישראל') : (settings?.contact_address_en ?? 'Jerusalem, Israel');
+  const footerQuote = isHe ? (settings?.footer_quote_he ?? '"החללים שאנו חיים בהם, משפיעים ישירות על חיינו."') : (settings?.footer_quote_en ?? '"The spaces we live in directly shape our lives."');
 
   function handleSecretClick() {
     clickCount.current += 1;
@@ -56,7 +64,7 @@ export function Footer() {
           {/* Social links */}
           <div className="flex items-center gap-6">
             <a
-              href="https://www.instagram.com/talya_zaltsman_interiors/"
+              href={instagram}
               target="_blank"
               rel="noopener noreferrer"
               className="group flex items-center gap-2 text-cream-100/35 transition-colors duration-300 hover:text-brass"
@@ -71,7 +79,7 @@ export function Footer() {
             </a>
             <span className="h-3 w-px bg-cream-100/15" />
             <a
-              href="mailto:studio@talyazaltsman.com"
+              href={`mailto:${email}`}
               className="group flex items-center gap-2 text-cream-100/35 transition-colors duration-300 hover:text-brass"
             >
               <Mail size={15} />
@@ -84,7 +92,7 @@ export function Footer() {
             </a>
             <span className="h-3 w-px bg-cream-100/15" />
             <a
-              href="tel:+972501234567"
+              href={`tel:${phone.replace(/[\s\-]/g, '')}`}
               className="group flex items-center gap-2 text-cream-100/35 transition-colors duration-300 hover:text-brass"
             >
               <Phone size={15} />
@@ -109,20 +117,18 @@ export function Footer() {
               {isHe ? 'סטודיו' : 'Studio'}
             </p>
             <div className="space-y-2">
-              <p className="font-serif text-base text-cream-100/60">
-                {isHe ? 'ירושלים, ישראל' : 'Jerusalem, Israel'}
-              </p>
+              <p className="font-serif text-base text-cream-100/60">{address}</p>
               <a
-                href="mailto:studio@talyazaltsman.com"
+                href={`mailto:${email}`}
                 className="block font-serif text-base text-cream-100/60 transition-colors hover:text-brass"
               >
-                studio@talyazaltsman.com
+                {email}
               </a>
               <a
-                href="tel:+972501234567"
+                href={`tel:${phone.replace(/[\s\-]/g, '')}`}
                 className="block font-serif text-base text-cream-100/60 transition-colors hover:text-brass"
               >
-                +972 50-123-4567
+                {phone}
               </a>
             </div>
           </div>
@@ -157,9 +163,7 @@ export function Footer() {
               {isHe ? 'הסטודיו' : 'About us'}
             </p>
             <blockquote className="font-serif text-base leading-relaxed text-cream-100/40 italic">
-              {isHe
-                ? '"החללים שאנו חיים בהם, משפיעים ישירות על חיינו."'
-                : '"The spaces we live in directly shape our lives."'}
+              {footerQuote}
             </blockquote>
           </div>
         </div>

@@ -2,21 +2,22 @@
 
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { LayoutGrid, FolderOpen, MessageSquare, LogOut, ExternalLink, Settings } from 'lucide-react';
+import { LayoutGrid, FolderOpen, MessageSquare, LogOut, ExternalLink, Settings, Quote } from 'lucide-react';
 import { signOut } from 'firebase/auth';
 import { getFirebaseAuth } from '@/lib/firebase';
 import { cn } from '@/lib/utils';
 
 const navItems = [
-  { href: '/admin', label: 'Dashboard', icon: LayoutGrid, exact: true },
-  { href: '/admin/projects', label: 'Projects', icon: FolderOpen },
-  { href: '/admin/leads', label: 'Leads', icon: MessageSquare },
-  { href: '/admin/site-settings', label: 'Site Content', icon: Settings },
+  { href: '/admin',                label: 'Dashboard',     icon: LayoutGrid,    exact: true  },
+  { href: '/admin/projects',       label: 'Projects',      icon: FolderOpen,    exact: false },
+  { href: '/admin/testimonials',   label: 'Testimonials',  icon: Quote,         exact: false },
+  { href: '/admin/leads',          label: 'Leads',         icon: MessageSquare, exact: false },
+  { href: '/admin/site-settings',  label: 'Site Content',  icon: Settings,      exact: false },
 ];
 
 export function AdminSidebar() {
   const pathname = usePathname();
-  const router = useRouter();
+  const router   = useRouter();
 
   async function handleSignOut() {
     await signOut(getFirebaseAuth());
@@ -26,17 +27,35 @@ export function AdminSidebar() {
   }
 
   return (
-    <aside className="flex w-56 flex-col border-r border-neutral-800 bg-neutral-900">
-      <div className="flex items-center gap-3 border-b border-neutral-800 px-5 py-5">
-        <div className="flex h-8 w-8 items-center justify-center border border-neutral-700 text-neutral-300">
-          <span className="font-serif text-xs tracking-tight">TZ</span>
+    <aside className="flex w-56 flex-col border-r border-cream-200 bg-cream-50">
+
+      {/* Logo */}
+      <div className="flex items-center gap-3 border-b border-cream-200 px-5 py-6">
+        <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center border border-brass/50">
+          <span
+            className="font-serif italic text-brass"
+            style={{ fontSize: '1rem', fontFamily: 'var(--font-serif)' }}
+          >
+            TZ
+          </span>
         </div>
         <div>
-          <p className="text-[11px] font-medium uppercase tracking-widest text-neutral-300">Admin</p>
-          <p className="text-[10px] text-neutral-600">Studio Panel</p>
+          <p
+            className="text-[10px] uppercase tracking-[0.2em] text-ink/70"
+            style={{ fontFamily: 'var(--font-montserrat)' }}
+          >
+            Studio Admin
+          </p>
+          <p
+            className="text-[9px] uppercase tracking-[0.15em] text-brass"
+            style={{ fontFamily: 'var(--font-montserrat)' }}
+          >
+            Talya Zaltsman
+          </p>
         </div>
       </div>
 
+      {/* Nav */}
       <nav className="flex-1 py-4">
         {navItems.map(({ href, label, icon: Icon, exact }) => {
           const active = exact ? pathname === href : pathname.startsWith(href);
@@ -45,31 +64,37 @@ export function AdminSidebar() {
               key={href}
               href={href}
               className={cn(
-                'flex items-center gap-3 px-5 py-2.5 text-xs uppercase tracking-wider transition-colors',
-                active ? 'bg-neutral-800 text-white' : 'text-neutral-500 hover:text-neutral-300'
+                'flex items-center gap-3 px-5 py-2.5 text-[10px] uppercase tracking-[0.15em] transition-colors duration-300',
+                active
+                  ? 'bg-cream-200/60 text-ink border-r-2 border-brass'
+                  : 'text-ink/65 hover:text-ink/70 hover:bg-cream-200/30'
               )}
+              style={{ fontFamily: 'var(--font-montserrat)' }}
             >
-              <Icon size={14} />
+              <Icon size={13} className={active ? 'text-brass' : 'text-ink/55'} strokeWidth={1.5} />
               {label}
             </Link>
           );
         })}
       </nav>
 
-      <div className="border-t border-neutral-800 p-4 space-y-1">
+      {/* Footer */}
+      <div className="border-t border-cream-200 py-3">
         <Link
           href="/he"
           target="_blank"
-          className="flex w-full items-center gap-3 px-1 py-2 text-xs uppercase tracking-wider text-neutral-500 transition-colors hover:text-neutral-200"
+          className="flex items-center gap-3 px-5 py-2 text-[9px] uppercase tracking-[0.15em] text-ink/55 transition-colors hover:text-brass"
+          style={{ fontFamily: 'var(--font-montserrat)' }}
         >
-          <ExternalLink size={14} />
+          <ExternalLink size={11} />
           View Site
         </Link>
         <button
           onClick={handleSignOut}
-          className="flex w-full items-center gap-3 px-1 py-2 text-xs uppercase tracking-wider text-neutral-600 transition-colors hover:text-neutral-400"
+          className="flex w-full items-center gap-3 px-5 py-2 text-[9px] uppercase tracking-[0.15em] text-ink/50 transition-colors hover:text-red-400"
+          style={{ fontFamily: 'var(--font-montserrat)' }}
         >
-          <LogOut size={14} />
+          <LogOut size={11} />
           Sign Out
         </button>
       </div>

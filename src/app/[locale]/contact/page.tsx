@@ -1,4 +1,5 @@
 import { getT } from '@/lib/translations';
+import { getSiteSettings } from '@/lib/firestore';
 import { ContactForm } from '@/components/sections/contact-form';
 import { FadeIn } from '@/components/ui/fade-in';
 import { Instagram, Mail, MapPin, Phone } from 'lucide-react';
@@ -11,8 +12,15 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
 
 export default async function ContactPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const t = await getT(locale);
+  const [t, settings] = await Promise.all([getT(locale), getSiteSettings()]);
   const isHe = locale === 'he';
+
+  const phone = settings.contact_phone;
+  const email = settings.contact_email;
+  const instagram = settings.contact_instagram;
+  const address = isHe ? settings.contact_address_he : settings.contact_address_en;
+  const hours1 = isHe ? settings.contact_hours1_he : settings.contact_hours1_en;
+  const hours2 = isHe ? settings.contact_hours2_he : settings.contact_hours2_en;
 
   return (
     <div className="pt-24 pb-20 md:pt-40 md:pb-32">
@@ -53,9 +61,7 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                 </p>
                 <div className="flex items-start gap-3">
                   <MapPin size={15} className="mt-0.5 flex-shrink-0 text-brass/50" />
-                  <p className="font-serif text-lg leading-snug text-ink/65">
-                    {isHe ? 'ירושלים, ישראל' : 'Jerusalem, Israel'}
-                  </p>
+                  <p className="font-serif text-lg leading-snug text-ink/65">{address}</p>
                 </div>
               </div>
 
@@ -70,18 +76,18 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                 </p>
                 <div className="space-y-3">
                   <a
-                    href="tel:+972501234567"
+                    href={`tel:${phone.replace(/[\s\-]/g, '')}`}
                     className="flex items-center gap-3 font-serif text-lg text-ink/65 transition-colors hover:text-brass"
                   >
                     <Phone size={15} className="flex-shrink-0 text-brass/50" />
-                    +972 50-123-4567
+                    {phone}
                   </a>
                   <a
-                    href="mailto:studio@talyazaltsman.com"
+                    href={`mailto:${email}`}
                     className="flex items-center gap-3 font-serif text-lg text-ink/65 transition-colors hover:text-brass"
                   >
                     <Mail size={15} className="flex-shrink-0 text-brass/50" />
-                    studio@talyazaltsman.com
+                    {email}
                   </a>
                 </div>
               </div>
@@ -96,13 +102,13 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                   {isHe ? 'רשתות חברתיות' : 'Social'}
                 </p>
                 <a
-                  href="https://www.instagram.com/talya_zaltsman_interiors/"
+                  href={instagram}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-3 font-serif text-lg text-ink/65 transition-colors hover:text-brass"
                 >
                   <Instagram size={15} className="flex-shrink-0 text-brass/50" />
-                  @talya_zaltsman_interiors
+                  {instagram.replace('https://www.instagram.com/', '').replace(/\/$/, '')}
                 </a>
               </div>
 
@@ -116,12 +122,8 @@ export default async function ContactPage({ params }: { params: Promise<{ locale
                 >
                   {isHe ? 'שעות פעילות' : 'Hours'}
                 </p>
-                <p className="font-serif text-base text-ink/50">
-                  {isHe ? 'א׳–ה׳: 9:00–18:00' : 'Sun–Thu: 9:00–18:00'}
-                </p>
-                <p className="font-serif text-base text-ink/50">
-                  {isHe ? 'ו׳: 9:00–14:00' : 'Fri: 9:00–14:00'}
-                </p>
+                <p className="font-serif text-base text-ink/50">{hours1}</p>
+                <p className="font-serif text-base text-ink/50">{hours2}</p>
               </div>
             </aside>
           </FadeIn>

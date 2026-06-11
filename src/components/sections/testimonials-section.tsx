@@ -3,40 +3,49 @@
 import { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Quote } from 'lucide-react';
+import type { DbTestimonial } from '@/types/database';
 
-interface Testimonial {
-  textHe: string;
-  textEn: string;
-  name: string;
-  projectHe?: string;
-  projectEn?: string;
-}
-
-const SAMPLES: Testimonial[] = [
+const FALLBACK: DbTestimonial[] = [
   {
-    textHe: 'טליה הפכה את הדירה שלנו לחלום שחיכינו לו שנים. כל פרט תוכנן בקפידה, כל חומר נבחר בדיוק.',
-    textEn: 'Talya turned our apartment into a dream we had waited years for. Every detail was meticulously planned, every material precisely chosen.',
+    id: '1',
+    text_he: 'טליה הפכה את הדירה שלנו לחלום שחיכינו לו שנים. כל פרט תוכנן בקפידה, כל חומר נבחר בדיוק.',
+    text_en: 'Talya turned our apartment into a dream we had waited years for. Every detail was meticulously planned, every material precisely chosen.',
     name: 'מיכל ויוסי לוי',
-    projectHe: 'דירה בתל אביב',
-    projectEn: 'Tel Aviv Apartment',
+    project_title_he: 'דירה בתל אביב',
+    project_title_en: 'Tel Aviv Apartment',
+    sort_order: 0,
+    published: true,
   },
   {
-    textHe: 'יצירתיות, מקצועיות ואדיבות ברמה הגבוהה ביותר. תוצאת הפרויקט עברה את כל הציפיות שלנו.',
-    textEn: 'Creativity, professionalism and courtesy at the highest level. The result surpassed all our expectations.',
+    id: '2',
+    text_he: 'יצירתיות, מקצועיות ואדיבות ברמה הגבוהה ביותר. תוצאת הפרויקט עברה את כל הציפיות שלנו.',
+    text_en: 'Creativity, professionalism and courtesy at the highest level. The result surpassed all our expectations.',
     name: 'דנה כהן',
-    projectHe: 'וילה ברמת השרון',
-    projectEn: 'Ramat HaSharon Villa',
+    project_title_he: 'וילה ברמת השרון',
+    project_title_en: 'Ramat HaSharon Villa',
+    sort_order: 1,
+    published: true,
   },
   {
-    textHe: 'החלל שנוצר מרגיש כמו בית אמיתי — חם, אינטימי, יוקרתי. תודה על הקשבה לחלום שלנו.',
-    textEn: 'The space created feels like a real home — warm, intimate, luxurious. Thank you for listening to our dream.',
+    id: '3',
+    text_he: 'החלל שנוצר מרגיש כמו בית אמיתי — חם, אינטימי, יוקרתי. תודה על הקשבה לחלום שלנו.',
+    text_en: 'The space created feels like a real home — warm, intimate, luxurious. Thank you for listening to our dream.',
     name: 'ניר ואמירה שפירא',
-    projectHe: 'פנטהאוז בהרצליה',
-    projectEn: 'Herzliya Penthouse',
+    project_title_he: 'פנטהאוז בהרצליה',
+    project_title_en: 'Herzliya Penthouse',
+    sort_order: 2,
+    published: true,
   },
 ];
 
-export function TestimonialsSection({ isHe }: { isHe: boolean }) {
+export function TestimonialsSection({
+  isHe,
+  testimonials,
+}: {
+  isHe: boolean;
+  testimonials?: DbTestimonial[];
+}) {
+  const items = (testimonials && testimonials.length > 0) ? testimonials : FALLBACK;
   const [active, setActive] = useState(0);
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-80px' });
@@ -63,7 +72,7 @@ export function TestimonialsSection({ isHe }: { isHe: boolean }) {
 
           {/* Dot nav */}
           <div className="flex gap-3">
-            {SAMPLES.map((_, i) => (
+            {items.map((_, i) => (
               <button
                 key={i}
                 onClick={() => setActive(i)}
@@ -80,7 +89,7 @@ export function TestimonialsSection({ isHe }: { isHe: boolean }) {
 
         {/* Quote cards */}
         <div className="relative">
-          {SAMPLES.map((t, i) => (
+          {items.map((t, i) => (
             <motion.div
               key={i}
               initial={false}
@@ -103,16 +112,16 @@ export function TestimonialsSection({ isHe }: { isHe: boolean }) {
                       fontSize: 'clamp(1.1rem, 2vw, 1.5rem)',
                     }}
                   >
-                    &ldquo;{isHe ? t.textHe : t.textEn}&rdquo;
+                    &ldquo;{isHe ? t.text_he : t.text_en}&rdquo;
                   </blockquote>
                   <div className="flex items-center gap-4">
                     <span className="h-px w-8 bg-brass/50" />
                     <div>
                       <p className="text-sm font-medium text-white/70">{t.name}</p>
-                      {(t.projectHe || t.projectEn) && (
+                      {(t.project_title_he || t.project_title_en) && (
                         <p className="text-[10px] uppercase tracking-[0.2em] text-brass/60 mt-0.5"
                           style={{ fontFamily: 'var(--font-montserrat)' }}>
-                          {isHe ? t.projectHe : t.projectEn}
+                          {isHe ? t.project_title_he : t.project_title_en}
                         </p>
                       )}
                     </div>
@@ -127,7 +136,7 @@ export function TestimonialsSection({ isHe }: { isHe: boolean }) {
             <div className="grid gap-12 md:grid-cols-[auto_1fr] md:gap-20 md:items-center">
               <Quote size={48} className="hidden md:block flex-shrink-0" />
               <blockquote style={{ fontFamily: 'var(--font-playfair)', fontStyle: 'italic', fontSize: 'clamp(1.1rem,2vw,1.5rem)' }}>
-                {SAMPLES[2].textHe}
+                {items[items.length - 1]?.text_he}
               </blockquote>
             </div>
           </div>
@@ -135,7 +144,7 @@ export function TestimonialsSection({ isHe }: { isHe: boolean }) {
 
         {/* Mobile tap indicators */}
         <div className="mt-12 flex justify-center gap-3 md:hidden">
-          {SAMPLES.map((_, i) => (
+          {items.map((_, i) => (
             <button key={i} onClick={() => setActive(i)} className="p-2" aria-label={`testimonial ${i + 1}`}>
               <span className="block h-1 rounded-full transition-all duration-500"
                 style={{ width: active === i ? 28 : 8, background: active === i ? '#C5A059' : 'rgba(255,255,255,0.2)' }}

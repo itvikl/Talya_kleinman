@@ -1,12 +1,14 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { getT } from '@/lib/translations';
-import { getProjects, getSiteSettings } from '@/lib/firestore';
+import { getProjects, getSiteSettings, getTestimonials } from '@/lib/firestore';
 import { Hero } from '@/components/sections/hero';
 import { FeaturedWorks } from '@/components/sections/featured-works';
 import { FadeIn, FadeInLine } from '@/components/ui/fade-in';
 import { Counter } from '@/components/ui/counter';
 import { TestimonialsSection } from '@/components/sections/testimonials-section';
+import { WorkProcess } from '@/components/sections/work-process';
+import { BeforeAfterSection } from '@/components/sections/before-after-section';
 import { Marquee } from '@/components/ui/marquee';
 import { ArrowRight, Download } from 'lucide-react';
 
@@ -21,7 +23,11 @@ export default async function HomePage({
   const t = await getT(locale);
   const isHe = locale === 'he';
 
-  const [allProjects, settings] = await Promise.all([getProjects(), getSiteSettings()]);
+  const [allProjects, settings, dbTestimonials] = await Promise.all([
+    getProjects(),
+    getSiteSettings(),
+    getTestimonials(),
+  ]);
   const featured = allProjects.slice(0, 3);
   const aboutCover = settings.about_image || allProjects[1]?.cover_image || allProjects[0]?.cover_image || null;
 
@@ -49,9 +55,7 @@ export default async function HomePage({
           className="text-[9px] uppercase tracking-[0.35em] text-ink/25"
           style={{ fontFamily: 'var(--font-montserrat)' }}
         >
-          {isHe
-            ? 'אדריכלות פנים · עיצוב יוקרה · ירושלים · תל אביב · מאז 2009 · טליה זלצמן · '
-            : 'Interior Architecture · Luxury Residences · Jerusalem · Tel Aviv · Est. 2009 · Talya Zaltsman · '}
+          {isHe ? settings.marquee_he : settings.marquee_en}
         </span>
       </Marquee>
 
@@ -107,17 +111,23 @@ export default async function HomePage({
       </section>
 
       {/* ── Testimonials ──────────────────────────────── */}
-      <TestimonialsSection isHe={isHe} />
+      <TestimonialsSection isHe={isHe} testimonials={dbTestimonials} />
+
+      {/* ── Work Process ────────────────────────────────── */}
+      <WorkProcess isHe={isHe} settings={settings} />
+
+      {/* ── Before & After ──────────────────────────────── */}
+      <BeforeAfterSection isHe={isHe} settings={settings} />
 
       {/* ── Stats ──────────────────────────────────────── */}
       <section className="border-y border-ink/8 bg-cream-100">
         <div className="container-editorial py-24">
           <div className="grid grid-cols-2 gap-12 md:grid-cols-4">
             {[
-              { end: 80, suffix: '+', labelHe: 'פרויקטים', labelEn: 'Projects' },
-              { end: 15, suffix: '+', labelHe: 'שנות ניסיון', labelEn: 'Years experience' },
-              { end: 3, suffix: '', labelHe: 'ערים', labelEn: 'Cities' },
-              { end: 98, suffix: '%', labelHe: 'לקוחות מרוצים', labelEn: 'Happy clients' },
+              { end: settings.stat_projects, suffix: '+', labelHe: 'פרויקטים', labelEn: 'Projects' },
+              { end: settings.stat_years, suffix: '+', labelHe: 'שנות ניסיון', labelEn: 'Years experience' },
+              { end: settings.stat_cities, suffix: '', labelHe: 'ערים', labelEn: 'Cities' },
+              { end: settings.stat_clients, suffix: '%', labelHe: 'לקוחות מרוצים', labelEn: 'Happy clients' },
             ].map((stat) => (
               <FadeIn key={stat.labelEn} className="text-center">
                 <p
