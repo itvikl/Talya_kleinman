@@ -54,11 +54,12 @@ export function ProjectActions({ projectId, published, title }: Props) {
       <button
         onClick={togglePublished}
         disabled={toggling}
-        className={`inline-flex items-center gap-1.5 text-[11px] uppercase tracking-wider transition-colors disabled:opacity-40 ${
-          isPublished ? 'text-emerald-500 hover:text-red-400' : 'text-neutral-500 hover:text-emerald-400'
+        style={{ fontFamily: 'var(--font-montserrat)' }}
+        className={`inline-flex items-center gap-1.5 text-[9px] uppercase tracking-[0.15em] transition-colors disabled:opacity-40 ${
+          isPublished ? 'text-emerald-600 hover:text-red-400' : 'text-ink/60 hover:text-emerald-500'
         }`}
       >
-        <span className={`h-1.5 w-1.5 rounded-full ${isPublished ? 'bg-emerald-500' : 'bg-neutral-600'}`} />
+        <span className={`h-1.5 w-1.5 rounded-full ${isPublished ? 'bg-emerald-500' : 'bg-ink/25'}`} />
         {isPublished ? 'Live' : 'Draft'}
       </button>
 
@@ -66,27 +67,29 @@ export function ProjectActions({ projectId, published, title }: Props) {
       <div className="flex items-center gap-3">
         <Link
           href={`/admin/projects/${projectId}`}
-          className="flex items-center gap-1 text-[11px] uppercase tracking-wider text-neutral-500 transition-colors hover:text-white"
+          style={{ fontFamily: 'var(--font-montserrat)' }}
+          className="flex items-center gap-1 text-[9px] uppercase tracking-[0.15em] text-ink/65 transition-colors hover:text-brass"
         >
-          <Pencil size={11} />
+          <Pencil size={10} />
           Edit
         </Link>
 
         <button
           onClick={() => setConfirmDelete(true)}
-          className="flex items-center gap-1 text-[11px] uppercase tracking-wider text-neutral-600 transition-colors hover:text-red-400"
+          style={{ fontFamily: 'var(--font-montserrat)' }}
+          className="flex items-center gap-1 text-[9px] uppercase tracking-[0.15em] text-ink/55 transition-colors hover:text-red-400"
         >
-          <Trash2 size={11} />
+          <Trash2 size={10} />
           Delete
         </button>
       </div>
 
       {/* Delete confirmation modal */}
       {confirmDelete && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-neutral-950/80 backdrop-blur-sm">
-          <div className="w-full max-w-sm border border-neutral-800 bg-neutral-900 p-8">
-            <h3 className="mb-2 font-serif text-lg font-light text-neutral-100">Delete Project?</h3>
-            <p className="mb-6 text-sm text-neutral-500">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+          <div className="w-full max-w-sm border border-cream-200 bg-cream-50 p-8">
+            <h3 className="mb-2 font-serif text-lg font-light text-ink">Delete Project?</h3>
+            <p className="mb-6 text-sm text-ink/65">
               &ldquo;{title}&rdquo; will be permanently removed along with all its images.
               This cannot be undone.
             </p>
@@ -101,7 +104,7 @@ export function ProjectActions({ projectId, published, title }: Props) {
               <button
                 onClick={() => setConfirmDelete(false)}
                 disabled={deleting}
-                className="flex-1 border border-neutral-700 py-2.5 text-[11px] uppercase tracking-wider text-neutral-400 transition-colors hover:text-white"
+                className="flex-1 border border-cream-200 py-2.5 text-[11px] uppercase tracking-wider text-ink/65 transition-colors hover:text-ink"
               >
                 Cancel
               </button>

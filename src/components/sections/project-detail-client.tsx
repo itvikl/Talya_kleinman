@@ -195,8 +195,8 @@ function GalleryCard({
       <img
         src={img.url}
         alt={isHe ? img.alt_he || '' : img.alt_en || ''}
-        loading={idx === 0 ? 'eager' : 'lazy'}
-        decoding={idx === 0 ? 'sync' : 'async'}
+        loading={idx < 2 ? 'eager' : 'lazy'}
+        decoding={idx < 2 ? 'sync' : 'async'}
         className={`w-full h-auto block transition-opacity duration-700 ${imgLoaded ? 'opacity-100' : 'opacity-0'}`}
         onLoad={() => setImgLoaded(true)}
       />
@@ -289,7 +289,8 @@ export function ProjectDetailClient({ project, images, nextProject, prevProject,
                 fill
                 priority
                 fetchPriority="high"
-                sizes="65vw"
+                sizes="(min-width: 768px) 65vw, 100vw"
+                quality={80}
                 className="object-cover"
               />
             ) : (

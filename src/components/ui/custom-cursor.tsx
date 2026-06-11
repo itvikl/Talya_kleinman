@@ -97,7 +97,7 @@ export function CustomCursor() {
             backgroundColor:
               state === 'image'
                 ? 'rgba(197,160,89,0.06)'
-                : 'transparent',
+                : 'rgba(197,160,89,0)',
           }}
           style={{ borderStyle: 'solid' }}
           transition={{ duration: 0.32, ease: [0.25, 0.46, 0.45, 0.94] }}

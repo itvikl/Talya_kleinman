@@ -43,7 +43,7 @@ function SortableImageCard({
         opacity: isDragging ? 0.35 : 1,
         zIndex: isDragging ? 50 : undefined,
       }}
-      className={`group relative border ${isDragging ? 'border-neutral-500 shadow-lg shadow-black/50' : 'border-neutral-800'} bg-neutral-900`}
+      className={`group relative border ${isDragging ? 'border-brass/40 shadow-lg shadow-slate-200' : 'border-cream-200'} bg-cream-50`}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img src={img.url} alt="" className="h-32 w-full object-cover" />
@@ -52,24 +52,24 @@ function SortableImageCard({
       <div
         {...attributes}
         {...listeners}
-        className="absolute left-1 top-1 cursor-grab active:cursor-grabbing rounded bg-neutral-950/70 p-1 opacity-0 transition-opacity group-hover:opacity-100"
+        className="absolute left-1 top-1 cursor-grab active:cursor-grabbing rounded bg-cream-50/70 p-1 opacity-0 transition-opacity group-hover:opacity-100"
         title="גרור לסידור מחדש"
       >
-        <GripVertical size={13} className="text-neutral-400" />
+        <GripVertical size={13} className="text-ink/60" />
       </div>
 
       {/* Delete */}
       <button
         type="button"
         onClick={() => onDelete(img.id)}
-        className="absolute right-1 top-1 rounded bg-neutral-950/70 p-1 opacity-0 transition-opacity group-hover:opacity-100"
+        className="absolute right-1 top-1 rounded bg-cream-50/70 p-1 opacity-0 transition-opacity group-hover:opacity-100"
       >
         <Trash2 size={12} className="text-red-400" />
       </button>
 
       {/* Sort order badge */}
-      <div className="absolute bottom-1 right-1 rounded bg-neutral-950/60 px-1.5 py-0.5">
-        <span className="font-mono text-[9px] text-neutral-500">
+      <div className="absolute bottom-1 right-1 rounded bg-cream-50/60 px-1.5 py-0.5">
+        <span className="font-mono text-[9px] text-ink/65">
           {String(img.sort_order + 1 || 1).padStart(2, '0')}
         </span>
       </div>
@@ -80,7 +80,7 @@ function SortableImageCard({
 // ── Preview: client-facing asymmetric gallery layout ─────────────────────────
 function PreviewGallery({ images }: { images: DbProjectImage[] }) {
   if (!images.length) return (
-    <p className="py-6 text-center text-xs text-neutral-600">אין תמונות בגלריה</p>
+    <p className="py-6 text-center text-xs text-ink/60">אין תמונות בגלריה</p>
   );
 
   const groups: { imgs: DbProjectImage[]; hasTall: boolean }[] = [];
@@ -98,7 +98,7 @@ function PreviewGallery({ images }: { images: DbProjectImage[] }) {
   }
 
   return (
-    <div className="space-y-1 rounded border border-neutral-700 overflow-hidden">
+    <div className="space-y-1 rounded border border-cream-200 overflow-hidden">
       {groups.map((group, gi) => (
         <div
           key={gi}
@@ -108,7 +108,7 @@ function PreviewGallery({ images }: { images: DbProjectImage[] }) {
           {group.imgs.map((img, idx) => (
             <div
               key={img.id}
-              className={`relative overflow-hidden bg-neutral-800 ${group.hasTall && idx === 0 ? 'row-span-2' : ''}`}
+              className={`relative overflow-hidden bg-cream-200 ${group.hasTall && idx === 0 ? 'row-span-2' : ''}`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={img.url} alt="" className="h-full w-full object-cover" />
@@ -135,9 +135,8 @@ const CATEGORIES: { value: ProjectCategory; label: string }[] = [
   { value: 'glamour', label: 'Glamour' },
 ];
 
-const inputClass =
-  'w-full border border-neutral-800 bg-neutral-900 px-3 py-2.5 text-sm text-neutral-100 outline-none transition-colors focus:border-neutral-600 placeholder:text-neutral-600';
-const labelClass = 'mb-1 block text-[10px] uppercase tracking-widest text-neutral-500';
+const inputClass = 'w-full border border-cream-200 bg-cream-50 px-3 py-2.5 text-sm text-ink outline-none transition-colors focus:border-brass/50 focus:bg-cream-50 placeholder:text-ink/50';
+const labelClass = 'mb-1.5 block text-[9px] uppercase tracking-[0.18em] text-ink/65';
 
 function UploadProgressBar({
   progress,
@@ -148,26 +147,26 @@ function UploadProgressBar({
 }) {
   const isMultiple = progress.total > 1;
   return (
-    <div className="border border-neutral-800 bg-neutral-900 px-4 py-3">
+    <div className="border border-cream-200 bg-cream-50 px-4 py-3">
       <div className="mb-2 flex items-center justify-between">
-        <span className="text-[11px] uppercase tracking-widest text-neutral-500">
+        <span className="text-[11px] uppercase tracking-widest text-ink/65">
           {isMultiple
             ? `Uploading ${progress.current} / ${progress.total}`
             : `Uploading ${label}`}
         </span>
-        <span className="font-mono text-sm text-white">{progress.pct}%</span>
+        <span className="font-mono text-sm text-ink">{progress.pct}%</span>
       </div>
       {/* Track */}
-      <div className="h-1 w-full overflow-hidden bg-neutral-800">
+      <div className="h-1.5 w-full overflow-hidden rounded-full bg-cream-200">
         <div
-          className="h-full bg-white transition-all duration-150"
+          className="h-full rounded-full bg-brass transition-all duration-150"
           style={{ width: `${progress.pct}%` }}
         />
       </div>
       {isMultiple && (
-        <div className="mt-2 h-0.5 w-full overflow-hidden bg-neutral-800">
+        <div className="mt-2 h-0.5 w-full overflow-hidden bg-cream-200">
           <div
-            className="h-full bg-neutral-600 transition-all duration-300"
+            className="h-full bg-brass/50 transition-all duration-300"
             style={{ width: `${((progress.current - 1) / progress.total) * 100}%` }}
           />
         </div>
@@ -392,7 +391,7 @@ export function ProjectForm({ projectId, initialData, initialImages = [] }: Prop
 
       {/* Core */}
       <section>
-        <h2 className="mb-5 text-[10px] uppercase tracking-widest text-neutral-500">Core Details</h2>
+        <h2 className="mb-5 text-[10px] uppercase tracking-widest text-ink/65">Core Details</h2>
         <div className="grid gap-4 md:grid-cols-2">
           <div><label className={labelClass}>Title (EN)</label>
             <input className={inputClass} required value={form.title_en} onChange={(e) => handleTitleEnChange(e.target.value)} /></div>
@@ -419,7 +418,7 @@ export function ProjectForm({ projectId, initialData, initialImages = [] }: Prop
 
       {/* Descriptions */}
       <section>
-        <h2 className="mb-5 text-[10px] uppercase tracking-widest text-neutral-500">Description</h2>
+        <h2 className="mb-5 text-[10px] uppercase tracking-widest text-ink/65">Description</h2>
         <div className="grid gap-4">
           <div><label className={labelClass}>Description (EN)</label>
             <textarea rows={4} className={inputClass} required value={form.description_en}
@@ -432,15 +431,15 @@ export function ProjectForm({ projectId, initialData, initialImages = [] }: Prop
 
       {/* Cover */}
       <section>
-        <h2 className="mb-5 text-[10px] uppercase tracking-widest text-neutral-500">Cover Image</h2>
+        <h2 className="mb-5 text-[10px] uppercase tracking-widest text-ink/65">Cover Image</h2>
         {form.cover_image && (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={form.cover_image} alt="" className="mb-3 h-40 w-full object-cover border border-neutral-800" />
+          <img src={form.cover_image} alt="" className="mb-3 h-40 w-full object-cover border border-cream-200" />
         )}
         {uploadProgress && uploading ? (
           <UploadProgressBar progress={uploadProgress} label="cover" />
         ) : (
-          <label className="flex cursor-pointer items-center gap-3 border border-dashed border-neutral-700 px-4 py-3 text-sm text-neutral-500 transition-colors hover:border-neutral-500 hover:text-neutral-300">
+          <label className="flex cursor-pointer items-center gap-3 border border-dashed border-cream-200 px-4 py-3 text-sm text-ink/65 transition-colors hover:border-brass/40 hover:text-ink/60">
             <Upload size={14} />
             Upload cover image
             <input type="file" accept="image/*" className="hidden" onChange={handleCoverUpload} />
@@ -455,10 +454,10 @@ export function ProjectForm({ projectId, initialData, initialImages = [] }: Prop
 
       {/* Before Image (optional — for comparison slider) */}
       <section>
-        <h2 className="mb-1 text-[10px] uppercase tracking-widest text-neutral-500">Before Image <span className="normal-case text-neutral-700">(optional — for Before/After slider)</span></h2>
+        <h2 className="mb-1 text-[10px] uppercase tracking-widest text-ink/65">Before Image <span className="normal-case text-ink/60">(optional — for Before/After slider)</span></h2>
         {form.before_image && (
           // eslint-disable-next-line @next/next/no-img-element
-          <img src={form.before_image} alt="before" className="mb-3 h-32 w-full object-cover border border-neutral-800 opacity-70" />
+          <img src={form.before_image} alt="before" className="mb-3 h-32 w-full object-cover border border-cream-200 opacity-70" />
         )}
         <div className="mt-2">
           <input className={inputClass} value={form.before_image ?? ''} placeholder="https://… (URL of the before image)"
@@ -470,21 +469,21 @@ export function ProjectForm({ projectId, initialData, initialImages = [] }: Prop
       <section>
         {/* Header + toggle */}
         <div className="mb-5 flex items-center justify-between">
-          <h2 className="text-[10px] uppercase tracking-widest text-neutral-500">
+          <h2 className="text-[10px] uppercase tracking-widest text-ink/65">
             Gallery Images
             {images.length > 0 && (
-              <span className="ml-2 text-neutral-700">({images.length})</span>
+              <span className="ml-2 text-ink/60">({images.length})</span>
             )}
           </h2>
           {images.length > 0 && (
-            <div className="flex items-center gap-1 rounded border border-neutral-800 p-0.5">
+            <div className="flex items-center gap-1 rounded border border-cream-200 p-0.5">
               <button
                 type="button"
                 onClick={() => setGalleryView('admin')}
                 className={`flex items-center gap-1.5 rounded px-2.5 py-1 text-[10px] uppercase tracking-wider transition-colors ${
                   galleryView === 'admin'
-                    ? 'bg-neutral-700 text-white'
-                    : 'text-neutral-600 hover:text-neutral-400'
+                    ? 'bg-slate-700 text-white'
+                    : 'text-ink/60 hover:text-ink/60'
                 }`}
               >
                 <Settings2 size={10} />
@@ -495,8 +494,8 @@ export function ProjectForm({ projectId, initialData, initialImages = [] }: Prop
                 onClick={() => setGalleryView('preview')}
                 className={`flex items-center gap-1.5 rounded px-2.5 py-1 text-[10px] uppercase tracking-wider transition-colors ${
                   galleryView === 'preview'
-                    ? 'bg-neutral-700 text-white'
-                    : 'text-neutral-600 hover:text-neutral-400'
+                    ? 'bg-slate-700 text-white'
+                    : 'text-ink/60 hover:text-ink/60'
                 }`}
               >
                 <Eye size={10} />
@@ -522,7 +521,7 @@ export function ProjectForm({ projectId, initialData, initialImages = [] }: Prop
         {/* Preview: client-facing layout */}
         {galleryView === 'preview' && (
           <div className="mb-3">
-            <p className="mb-2 text-[9px] uppercase tracking-widest text-neutral-600">
+            <p className="mb-2 text-[9px] uppercase tracking-widest text-ink/60">
               כך תיראה הגלריה באתר
             </p>
             <PreviewGallery images={images} />
@@ -532,7 +531,7 @@ export function ProjectForm({ projectId, initialData, initialImages = [] }: Prop
         {uploadProgress && uploading ? (
           <UploadProgressBar progress={uploadProgress} label="gallery" />
         ) : (
-          <label className="flex cursor-pointer items-center gap-3 border border-dashed border-neutral-700 px-4 py-3 text-sm text-neutral-500 transition-colors hover:border-neutral-500 hover:text-neutral-300">
+          <label className="flex cursor-pointer items-center gap-3 border border-dashed border-cream-200 px-4 py-3 text-sm text-ink/65 transition-colors hover:border-brass/40 hover:text-ink/60">
             <Upload size={14} />
             Upload gallery images (multiple)
             <input type="file" accept="image/*" multiple className="hidden" onChange={handleGalleryUpload} />
@@ -542,11 +541,11 @@ export function ProjectForm({ projectId, initialData, initialImages = [] }: Prop
 
       {/* Settings */}
       <section>
-        <h2 className="mb-5 text-[10px] uppercase tracking-widest text-neutral-500">Settings</h2>
+        <h2 className="mb-5 text-[10px] uppercase tracking-widest text-ink/65">Settings</h2>
         <div className="flex items-center gap-3">
           <input type="checkbox" id="published" checked={form.published}
             onChange={(e) => set('published', e.target.checked)} className="h-4 w-4 accent-white" />
-          <label htmlFor="published" className="text-sm text-neutral-300">Published (visible on site)</label>
+          <label htmlFor="published" className="text-sm text-ink/60">Published (visible on site)</label>
         </div>
         <div className="mt-4">
           <label className={labelClass}>Sort Order</label>
@@ -557,11 +556,11 @@ export function ProjectForm({ projectId, initialData, initialImages = [] }: Prop
 
       <div className="flex gap-4 pt-2">
         <button type="submit" disabled={saving || uploading}
-          className="bg-white px-8 py-2.5 text-[11px] uppercase tracking-wider text-neutral-950 transition-opacity disabled:opacity-50">
+          className="bg-cream-50 px-8 py-2.5 text-[11px] uppercase tracking-wider text-ink transition-opacity disabled:opacity-50">
           {saving ? 'Saving…' : isEditing ? 'Save Changes' : 'Create Project'}
         </button>
         <button type="button" onClick={() => router.push('/admin/projects')}
-          className="border border-neutral-800 px-6 py-2.5 text-[11px] uppercase tracking-wider text-neutral-500 transition-colors hover:text-neutral-300">
+          className="border border-cream-200 px-6 py-2.5 text-[11px] uppercase tracking-wider text-ink/65 transition-colors hover:text-ink/60">
           Cancel
         </button>
       </div>
