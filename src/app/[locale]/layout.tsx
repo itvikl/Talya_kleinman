@@ -9,6 +9,7 @@ import { getSiteSettings, DEFAULT_SETTINGS } from '@/lib/firestore';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { WhatsAppFab } from '@/components/ui/whatsapp-fab';
+import { AiChat } from '@/components/ui/ai-chat';
 import { CustomCursor } from '@/components/ui/custom-cursor';
 import { BackToTop } from '@/components/ui/back-to-top';
 import { SmoothScroll } from '@/components/ui/smooth-scroll';
@@ -93,6 +94,7 @@ export default async function LocaleLayout({
                 <main className="min-h-screen">{children}</main>
                 <Footer />
                 <WhatsAppFab />
+                <AiChat />
                 <BackToTop />
                 <CustomCursor />
               </div>
